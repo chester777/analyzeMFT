@@ -223,7 +223,14 @@ class MftSession:
             self.fullmft[self.num_records] = record
 
         if self.options.output is not None:
-            self.file_csv.writerow(mft.mft_to_csv(record, False, self.options))
+            rows = mft.mft_to_csv(record, False, self.options)
+            mft_rows = list()
+            for row in rows:
+                if type(row) is str:
+                    mft_rows.append(row.decode('utf-8').encode('utf-8'))
+                else:
+                    mft_rows.append(row)
+            self.file_csv.writerow(mft_rows)
         
         if self.options.json is not None:    
             with open(self.options.json, 'a') as outfile:
