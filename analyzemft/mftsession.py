@@ -227,7 +227,7 @@ class MftSession:
             mft_rows = list()
             for row in rows:
                 if type(row) is str:
-                    mft_rows.append(row.decode('utf-8').encode('utf-8'))
+                    mft_rows.append(row.decode('utf8').encode('cp949'))
                 else:
                     mft_rows.append(row)
             self.file_csv.writerow(mft_rows)
